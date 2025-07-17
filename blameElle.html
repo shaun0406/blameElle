@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>#BLAMEELLE</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensures the page takes at least the full height of the viewport */
+            background-color: #ffe0e9; /* Light pink for the paper effect */
+            background-image:
+                linear-gradient(45deg, rgba(255,255,255,.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.1) 50%, rgba(255,255,255,.1) 75%, transparent 75%, transparent),
+                linear-gradient(45deg, rgba(255,255,255,.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.1) 50%, rgba(255,255,255,.1) 75%, transparent 75%, transparent);
+            background-size: 20px 20px; /* Adjust size for the paper texture */
+            background-position: 0 0, 10px 10px; /* Offset for a better texture */
+            position: relative; /* Needed for the crumpled paper effect */
+            overflow: hidden; /* Hide anything that goes outside the body */
+        }
+
+        /* Crumpled paper effect - subtle shadows and folds */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(0,0,0,0.03) 0%, transparent 20%),
+                        radial-gradient(circle at 90% 80%, rgba(0,0,0,0.04) 0%, transparent 20%),
+                        radial-gradient(circle at 50% 50%, rgba(0,0,0,0.02) 0%, transparent 15%);
+            mix-blend-mode: multiply; /* Blends nicely with the pink background */
+            pointer-events: none; /* Allows clicks to pass through */
+        }
+
+        .header-container {
+            text-align: center;
+            /* Optional: Add some padding around the header if needed */
+        }
+
+        h1 {
+            font-family: 'Impact', sans-serif; /* A bold, impactful font */
+            font-size: 8em; /* Make it gigantic! Adjust as needed */
+            color: #ff69b4; /* Bright pink for the base text */
+            text-shadow:
+                0 0 5px #fff,    /* Subtle white glow for bedazzled effect */
+                0 0 10px #ff00ff, /* Magenta glow */
+                0 0 15px #ff00ff,
+                0 0 20px #ff00ff,
+                0 0 25px #ff00ff,
+                0 0 30px #ff00ff,
+                0 0 35px #ff00ff; /* Multiple shadows for a stronger glow */
+            letter-spacing: 5px; /* Space out the letters a bit */
+            -webkit-text-stroke: 2px #fff; /* White border around text for more sparkle */
+            transform: rotate(-3deg); /* A slight tilt for character */
+            position: relative;
+            z-index: 10; /* Ensure it's above the paper effects */
+        }
+
+        /* Adding more 'sparkle' details with pseudo-elements */
+        h1::before, h1::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7); /* White sparkles */
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        h1::before {
+            width: 20px;
+            height: 20px;
+            top: 10%;
+            left: 5%;
+            transform: rotate(45deg);
+        }
+
+        h1::after {
+            width: 15px;
+            height: 15px;
+            bottom: 20%;
+            right: 8%;
+            transform: rotate(-30deg);
+        }
+
+        /* You can add more sparkles by adding more pseudo-elements or using JavaScript for dynamic ones */
+
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <h1>#BLAMEELLE</h1>
+    </div>
+</body>
+</html>
