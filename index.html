@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>#BLAMEELLE</title>
+    <title>#BLAMEELLE - Bedazzled!</title>
     <style>
         body {
             margin: 0;
@@ -19,8 +19,9 @@
                 linear-gradient(45deg, rgba(255,255,255,.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.1) 50%, rgba(255,255,255,.1) 75%, transparent 75%, transparent);
             background-size: 20px 20px; /* Adjust size for the paper texture */
             background-position: 0 0, 10px 10px; /* Offset for a better texture */
-            position: relative; /* Needed for the crumpled paper effect */
+            position: relative; /* Needed for the crumpled paper effect and sparkle positioning */
             overflow: hidden; /* Hide anything that goes outside the body */
+            cursor: crosshair; /* Indicate interactivity for sparkles */
         }
 
         /* Crumpled paper effect - subtle shadows and folds */
@@ -36,11 +37,13 @@
                         radial-gradient(circle at 50% 50%, rgba(0,0,0,0.02) 0%, transparent 15%);
             mix-blend-mode: multiply; /* Blends nicely with the pink background */
             pointer-events: none; /* Allows clicks to pass through */
+            z-index: 1; /* Ensure it's below the main content but above background */
         }
 
         .header-container {
             text-align: center;
-            /* Optional: Add some padding around the header if needed */
+            position: relative; /* Ensure it's positioned correctly above sparkles */
+            z-index: 10; /* Ensure it's above the sparkles */
         }
 
         h1 {
@@ -59,16 +62,17 @@
             -webkit-text-stroke: 2px #fff; /* White border around text for more sparkle */
             transform: rotate(-3deg); /* A slight tilt for character */
             position: relative;
-            z-index: 10; /* Ensure it's above the paper effects */
+            z-index: 10; /* Ensure it's above the paper effects and sparkles */
         }
 
-        /* Adding more 'sparkle' details with pseudo-elements */
+        /* Adding more 'sparkle' details with pseudo-elements (static sparkles) */
         h1::before, h1::after {
             content: '';
             position: absolute;
             background: rgba(255, 255, 255, 0.7); /* White sparkles */
             border-radius: 50%;
             filter: blur(2px);
+            z-index: -1; /* Place behind the text itself */
         }
 
         h1::before {
@@ -87,13 +91,74 @@
             transform: rotate(-30deg);
         }
 
-        /* You can add more sparkles by adding more pseudo-elements or using JavaScript for dynamic ones */
+        /* --- Dynamic Sparkle CSS --- */
+        .sparkle-js {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8); /* White with some transparency */
+            border-radius: 50%;
+            animation: fadeOutShrink 1s forwards; /* Animation for JS sparkles */
+            pointer-events: none; /* Allow clicks to pass through */
+            box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.5); /* A subtle glow */
+            z-index: 5; /* Ensure sparkles are above background but below main text */
+        }
 
+        @keyframes fadeOutShrink {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="header-container">
         <h1>#BLAMEELLE</h1>
     </div>
+
+    <script>
+        // Function to create a sparkle element
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle-js');
+            document.body.appendChild(sparkle);
+
+            // Random size for the sparkle
+            const size = Math.random() * 8 + 2; // Size between 2px and 10px
+            sparkle.style.width = size + 'px';
+            sparkle.style.height = size + 'px';
+
+            // Position the sparkle, centering it on the mouse coordinates
+            sparkle.style.left = (x - size / 2) + 'px';
+            sparkle.style.top = (y - size / 2) + 'px';
+
+            // Remove the sparkle element from the DOM once its animation completes
+            sparkle.addEventListener('animationend', () => {
+                sparkle.remove();
+            });
+        }
+
+        // Event listener for mouse movement to create continuous sparkles
+        document.addEventListener('mousemove', function(e) {
+            // Only create a sparkle every few pixels to avoid too many elements
+            if (Math.random() < 0.3) { // Adjust this value to control density
+                createSparkle(e.clientX, e.clientY);
+            }
+        });
+
+        // Event listener for clicks to create a burst of sparkles
+        document.addEventListener('click', function(e) {
+            // Create a burst of 10 sparkles around the click point
+            for (let i = 0; i < 10; i++) {
+                // Add a small random offset for a spread effect
+                const offsetX = (Math.random() - 0.5) * 60; // -30 to +30 pixels offset
+                const offsetY = (Math.random() - 0.5) * 60;
+                createSparkle(e.clientX + offsetX, e.clientY + offsetY);
+            }
+        });
+    </script>
 </body>
 </html>
