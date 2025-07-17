@@ -21,7 +21,7 @@
             background-position: 0 0, 10px 10px; /* Offset for a better texture */
             position: relative; /* Needed for the crumpled paper effect and sparkle positioning */
             overflow: hidden; /* Hide anything that goes outside the body */
-            cursor: crosshair; /* Indicate interactivity for sparkles */
+            cursor: crosshair; /* Indicate interactivity for dynamic sparkles */
         }
 
         /* Crumpled paper effect - subtle shadows and folds */
@@ -65,7 +65,7 @@
             z-index: 10; /* Ensure it's above the paper effects and sparkles */
         }
 
-        /* Adding more 'sparkle' details with pseudo-elements (static sparkles) */
+        /* Adding more 'sparkle' details with pseudo-elements (static sparkles on text) */
         h1::before, h1::after {
             content: '';
             position: absolute;
@@ -91,15 +91,15 @@
             transform: rotate(-30deg);
         }
 
-        /* --- Dynamic Sparkle CSS --- */
+        /* --- Dynamic Sparkle CSS (for mouse/click effects) --- */
         .sparkle-js {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.8); /* White with some transparency */
+            background-color: rgba(255, 105, 180, 0.8); /* Pink with some transparency */
             border-radius: 50%;
             animation: fadeOutShrink 1s forwards; /* Animation for JS sparkles */
             pointer-events: none; /* Allow clicks to pass through */
-            box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.5); /* A subtle glow */
-            z-index: 5; /* Ensure sparkles are above background but below main text */
+            box-shadow: 0 0 5px 2px rgba(255, 105, 180, 0.5); /* A subtle pink glow */
+            z-index: 5; /* Ensure dynamic sparkles are above background but below main text */
         }
 
         @keyframes fadeOutShrink {
@@ -112,9 +112,78 @@
                 opacity: 0;
             }
         }
+
+        /* --- Static Background Sparkles CSS --- */
+        .static-sparkle-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allow clicks to pass through */
+            z-index: 2; /* Below dynamic sparkles and text, above paper effect */
+        }
+
+        .static-sparkle {
+            position: absolute;
+            background-color: rgba(255, 105, 180, 0.9); /* Vibrant pink for static sparkles, higher opacity */
+            border-radius: 0; /* Make it square */
+            transform: rotate(45deg); /* Rotate to make it diamond */
+            filter: blur(0.2px); /* Slightly less blur for more defined diamond shape */
+            opacity: 0.9; /* Higher initial opacity */
+            animation: twinkle-animation 3s infinite ease-in-out; /* Faster twinkling animation */
+            box-shadow: 0 0 8px 3px rgba(255, 105, 180, 0.7); /* More prominent pink glow */
+        }
+
+        @keyframes twinkle-animation {
+            0%, 100% {
+                transform: rotate(45deg) scale(1); /* Maintain diamond shape during scale */
+                opacity: 0.9;
+            }
+            50% {
+                transform: rotate(45deg) scale(1.3); /* More pronounced pulse, maintain diamond */
+                opacity: 1; /* Fully opaque and brighter at peak */
+            }
+        }
+
+        /* Individual static sparkle positioning and delays */
+        .static-sparkle:nth-child(1) { width: 8px; height: 8px; top: 15%; left: 10%; animation-delay: 0s; }
+        .static-sparkle:nth-child(2) { width: 12px; height: 12px; top: 5%; left: 80%; animation-delay: 0.5s; }
+        .static-sparkle:nth-child(3) { width: 6px; height: 6px; top: 40%; left: 30%; animation-delay: 1s; }
+        .static-sparkle:nth-child(4) { width: 10px; height: 10px; top: 70%; left: 60%; animation-delay: 1.5s; }
+        .static-sparkle:nth-child(5) { width: 14px; height: 14px; top: 25%; left: 50%; animation-delay: 2s; }
+        .static-sparkle:nth-child(6) { width: 8px; height: 8px; top: 85%; left: 20%; animation-delay: 2.5s; }
+        .static-sparkle:nth-child(7) { width: 12px; height: 12px; top: 55%; left: 90%; animation-delay: 3s; }
+        .static-sparkle:nth-child(8) { width: 6px; height: 6px; top: 10%; left: 40%; animation-delay: 3.5s; }
+        .static-sparkle:nth-child(9) { width: 10px; height: 10px; top: 65%; left: 5%; animation-delay: 0.2s; }
+        .static-sparkle:nth-child(10) { width: 8px; height: 8px; top: 30%; left: 70%; animation-delay: 0.8s; }
+        .static-sparkle:nth-child(11) { width: 12px; height: 12px; top: 95%; left: 45%; animation-delay: 1.2s; }
+        .static-sparkle:nth-child(12) { width: 6px; height: 6px; top: 50%; left: 15%; animation-delay: 1.8s; }
+        .static-sparkle:nth-child(13) { width: 10px; height: 10px; top: 75%; left: 85%; animation-delay: 2.3s; }
+        .static-sparkle:nth-child(14) { width: 14px; height: 14px; top: 5%; left: 25%; animation-delay: 2.8s; }
+        .static-sparkle:nth-child(15) { width: 8px; height: 8px; top: 45%; left: 55%; animation-delay: 3.3s; }
     </style>
 </head>
 <body>
+    <div class="static-sparkle-container">
+        <!-- Static Background Sparkles -->
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+        <div class="static-sparkle"></div>
+    </div>
+
     <div class="header-container">
         <h1>#BLAMEELLE</h1>
     </div>
